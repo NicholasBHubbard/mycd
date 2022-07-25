@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # Author:  NicholasBHubbard
 # WWW:     https://github.com/NicholasBHubbard/mycd
 # License: MIT
