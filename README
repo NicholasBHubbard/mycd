@@ -1,5 +1,4 @@
 # -*- mode:org;mode:auto-fill;fill-column:80 -*-
-#+title: mycd
 #+author: Nicholas Hubbard
 
 A bash function that wraps =cd= to log your directory history.
