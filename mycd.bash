@@ -14,7 +14,7 @@ function mycd() {
 
     [[ -f $MYCD_HIST_FILE ]] || (touch "$MYCD_HIST_FILE" && chmod 0666 "$MYCD_HIST_FILE")
 
-    if ! [[ -r $MYCD_HIST_FILE && -w $MYCD_HISTFILE ]]; then
+    if ! [[ -r $MYCD_HIST_FILE && -w $MYCD_HIST_FILE ]]; then
         >&2 printf "mycd: you do not have read+write permission on %s\n" "$MYCD_HIST_FILE"
         return 0
     fi
