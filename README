@@ -44,7 +44,7 @@ A bash function that wraps =cd= to log your directory history.
      5	/etc
   #+END_SRC
   The second special argument is =-N= where =N= is one of the numbers listed in
-  the =--= output. This changes your directory to the =N=th directory in your
+  the =--= output. This changes your directory to the =N='th directory in your
   history.
   #+BEGIN_SRC
   [nick@slacktop ~]$ cd -3
