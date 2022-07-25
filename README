@@ -62,8 +62,8 @@ A bash function that wraps =cd= to log your directory history.
   directory history in. This value defaults to =$HOME/.mycd-dir-hist=. You can
   use this variable to share directory history between users by setting it to
   the same value in different users =.bashrc='s. Note that if you do this you
-  will also want to make sure that =MYCD_HIST_LENGTH= is set to the same value
-  for each user.
+  will want to make sure that =MYCD_HIST_LENGTH= is set to the same value for
+  each user and the history file is readable and writable by each user.
 
 * License
   MIT
