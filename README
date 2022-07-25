@@ -15,7 +15,7 @@ A bash function that wraps =cd= to log your directory history.
 * Installation
   #+BEGIN_SRC
   git clone https://github.com/NicholasBHubbard/mycd
-  cp mycd/mycd.bash /etc/profile.d/mycd.bash
+  cp mycd/mycd.bash /etc/profile.d/
   #+END_SRC
 
   You can of course install =mycd.bash= anywhere you wish.
@@ -24,7 +24,7 @@ A bash function that wraps =cd= to log your directory history.
   recommended that you alias =cd= to =mycd=. Add the following lines to your
   =.bashrc=.
   #+BEGIN_SRC 
-  [[ -r '/etc/profile.d/mycd.bash' ]] && . '/etc/profile.d/'
+  [[ -r '/etc/profile.d/mycd.bash' ]] && . '/etc/profile.d/mycd.bash'
   alias cd='mycd'
   #+END_SRC 
   
