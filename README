@@ -1,0 +1,74 @@
+# -*- mode:org;mode:auto-fill;fill-column:80 -*-
+#+title: mycd
+#+author: Nicholas Hubbard
+
+A bash function that wraps =cd= to log your directory history.
+
+* Philosophy
+  It is extremely common to need to go back to a directory you've visited
+  recently. =mycd= exists to solve this problem in the simplest way possible by
+  remembering the last 15 (by default) directories you've visited and providing
+  a simple way to list and jump to these directories.
+
+  The directory history is saved across sessions and can be configured to be
+  shared between different users.
+  
+* Installation
+  #+BEGIN_SRC
+  git clone https://github.com/NicholasBHubbard/mycd
+  cp mycd/mycd.bash /etc/profile.d/mycd.bash
+  #+END_SRC
+
+  You can of course install =mycd.bash= anywhere you wish.
+
+  Next you will need to source =mycd.bash= from your =.bashrc=. It is also
+  recommended that you alias =cd= to =mycd=. Add the following lines to your
+  =.bashrc=.
+  #+BEGIN_SRC 
+  . '/etc/profile.d/mycd.bash'
+  alias cd='mycd'
+  #+END_SRC 
+  
+* Usage
+  =mycd= works the same way as regular =cd= except it accepts two special
+  arguments. The first special argument is =--= which lists your directory
+  history.
+  #+BEGIN_SRC
+  [nick@slacktop ~]$ cd --
+     1	/home/nick
+     2	/etc/rc.d
+     3	/home/nick/Pictures
+     4	/
+     5	/etc
+  #+END_SRC
+  The second special command is =-N= where =N= is one of the numbers listed in
+  the =--= output.
+  #+BEGIN_SRC
+  [nick@slacktop ~]$ cd -3
+  [nick@slacktop Pictures]$ 
+  #+END_SRC
+  Please note that no duplicate entries are stored in the history.
+  #+BEGIN_SRC
+  [nick@slacktop Pictures]$ cd --
+     1	/home/nick/Pictures
+     2	/home/nick
+     3	/etc/rc.d
+     4	/
+     5	/etc
+  #+END_SRC
+* Customization
+  There are two variables you can set in your =.bashrc= to modify the behavior
+  of =mycd=.
+
+  The first is =MYCD_HIST_LENGTH= which controls the number of history items
+  that are remembered. This value defaults to 15. 
+
+  The second variable is =MYCD_HIST_FILE= which controls which file to store the
+  directory history in. This value defaults to =$HOME/.mycd-dir-hist=. You can
+  use this variable to share directory history between users by setting it to
+  the same value in different users =.bashrc='s. Note that if you do this you
+  will also want to make sure that =MYCD_HIST_LENGTH= is set to the same value
+  for each user.
+
+* License
+  MIT
