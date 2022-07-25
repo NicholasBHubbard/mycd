@@ -4,7 +4,7 @@
 
 A bash function that wraps =cd= to log your directory history.
 
-* Philosophy
+* Why Does This Exist?
   It is extremely common to need to go back to a directory you've visited
   recently. =mycd= exists to solve this problem in the simplest way possible by
   remembering the last 15 (by default) directories you've visited and providing
@@ -31,8 +31,9 @@ A bash function that wraps =cd= to log your directory history.
   
 * Usage
   =mycd= works the same way as regular =cd= except it accepts two special
-  arguments. The first special argument is =--= which lists your directory
-  history.
+  arguments.
+
+  The first special argument is =--= which lists your directory history.
   #+BEGIN_SRC
   [nick@slacktop ~]$ cd --
      1	/home/nick
@@ -41,21 +42,14 @@ A bash function that wraps =cd= to log your directory history.
      4	/
      5	/etc
   #+END_SRC
-  The second special command is =-N= where =N= is one of the numbers listed in
-  the =--= output.
+  The second special argument is =-N= where =N= is one of the numbers listed in
+  the =--= output. This changes your directory to the =N=th directory in your
+  history.
   #+BEGIN_SRC
   [nick@slacktop ~]$ cd -3
   [nick@slacktop Pictures]$ 
   #+END_SRC
-  Please note that no duplicate entries are stored in the history.
-  #+BEGIN_SRC
-  [nick@slacktop Pictures]$ cd --
-     1	/home/nick/Pictures
-     2	/home/nick
-     3	/etc/rc.d
-     4	/
-     5	/etc
-  #+END_SRC
+
 * Customization
   There are two variables you can set in your =.bashrc= to modify the behavior
   of =mycd=.
