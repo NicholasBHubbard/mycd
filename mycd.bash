@@ -19,9 +19,7 @@ function mycd() {
         return 0
     fi
 
-    local newdir histlength=0
-
-    local arg="$1"
+    local arg="$1" newdir histlength=0
 
     if [[ $arg =~ ^-([1-9][0-9]*)$ ]]; then
         local histnum=${BASH_REMATCH[1]}
