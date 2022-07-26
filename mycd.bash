@@ -9,14 +9,14 @@ function mycd() {
 
     if [[ $# -gt 1 ]]; then
         >&2 printf "mycd: too many arguments\n"
-        return 0
+        return 1
     fi
 
     [[ -f $MYCD_HIST_FILE ]] || (touch "$MYCD_HIST_FILE" && chmod 0666 "$MYCD_HIST_FILE")
 
     if ! [[ -r $MYCD_HIST_FILE && -w $MYCD_HIST_FILE ]]; then
         >&2 printf "mycd: you do not have read+write permission on %s\n" "$MYCD_HIST_FILE"
-        return 0
+        return 1
     fi
 
     local arg="$1" newdir histlength=0
@@ -35,18 +35,18 @@ function mycd() {
             newdir=${dirhist[$histnum]}
         else
             >&2 printf "mycd: %s not in range 1-%s\n" "$histnum" "$histlength"
-            return 0
+            return 1
         fi
     elif [[ $arg == '--' ]]; then
         cat -n "$MYCD_HIST_FILE"
-        return 1
+        return 0
     elif [[ -z $arg ]]; then
         newdir="$HOME"
     else
         newdir="$arg"
     fi
 
-    builtin cd "$newdir" || return 0
+    builtin cd "$newdir" || return 1
     newdir="$PWD"
 
     local tmp
@@ -57,5 +57,5 @@ function mycd() {
 
     [[ -f $tmp ]] && rm "$tmp"
 
-    return 1
+    return 0
 }
