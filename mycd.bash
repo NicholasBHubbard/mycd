@@ -52,7 +52,7 @@ function mycd() {
     local tmp
     tmp=$(mktemp /tmp/mycd.XXXXXXXXXX)
 
-    cat <(printf "%s\n" "$newdir") <(grep -v "^${newdir}$" "$MYCD_HIST_FILE") \
+    cat <(printf "%s\n" "$newdir") <(grep -vFx "$newdir" "$MYCD_HIST_FILE") \
     | head -n "$MYCD_HIST_LENGTH" > "$tmp" && mv "$tmp" "$MYCD_HIST_FILE"
 
     [[ -f $tmp ]] && rm "$tmp"
