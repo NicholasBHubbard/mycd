@@ -38,7 +38,7 @@ function mycd() {
             return 1
         fi
     elif [[ $arg == '--' ]]; then
-        cat -n "$MYCD_HIST_FILE"
+        nl "$MYCD_HIST_FILE"
         return 0
     elif [[ -z $arg ]]; then
         newdir="$HOME"
