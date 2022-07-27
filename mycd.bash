@@ -55,7 +55,7 @@ function mycd() {
     cat <(printf "%s\n" "$newdir") <(grep -vFx "$newdir" "$MYCD_HIST_FILE") \
     | head -n "$MYCD_HIST_LENGTH" > "$tmp" && mv "$tmp" "$MYCD_HIST_FILE"
 
-    [[ -f $tmp ]] && rm "$tmp"
+    [[ -f $tmp ]] && (rm "$tmp" ; return 1)
 
     return 0
 }
