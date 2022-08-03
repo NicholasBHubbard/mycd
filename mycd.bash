@@ -12,7 +12,9 @@ function mycd() {
         return 1
     fi
 
-    [[ -f $MYCD_HIST_FILE ]] || (touch "$MYCD_HIST_FILE" && chmod 0666 "$MYCD_HIST_FILE")
+    [[ -f $MYCD_HIST_FILE ]] || (:> "$MYCD_HIST_FILE")
+
+    chmod 0666 "$MYCD_HIST_FILE"
 
     if ! [[ -r $MYCD_HIST_FILE && -w $MYCD_HIST_FILE ]]; then
         >&2 printf "mycd: you do not have read+write permission on %s\n" "$MYCD_HIST_FILE"
@@ -50,13 +52,13 @@ function mycd() {
     newdir="$PWD"
 
     local tmp
-    tmp=$(mktemp /tmp/mycd.XXXXXXXXXX)
+    tmp=$(mktemp /tmp/mycd-dir-hist.XXXXXXXXXX)
     cp -dp "$MYCD_HIST_FILE" "$tmp"
 
     cat <(printf "%s\n" "$newdir") <(grep -vFx "$newdir" "$MYCD_HIST_FILE") \
-    | head -n "$MYCD_HIST_LENGTH" > "$tmp" && mv "$tmp" "$MYCD_HIST_FILE"
+    | head -n "$MYCD_HIST_LENGTH" > "$tmp" && cp -dp "$tmp" "$MYCD_HIST_FILE"
 
-    [[ -f $tmp ]] && (rm "$tmp" ; return 1)
+    [[ -f $tmp ]] && rm "$tmp"
 
     return 0
 }

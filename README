@@ -7,10 +7,8 @@ A bash function that wraps =cd= to log your directory history.
   It is extremely common to need to go back to a directory you've visited
   recently. =mycd= exists to solve this problem in the simplest way possible by
   remembering the last 15 (by default) directories you've visited and providing
-  a simple way to list and jump to these directories.
-
-  The directory history is saved across sessions and can be configured to be
-  shared between different users.
+  a simple way to list and jump to these directories. The directory history is
+  saved across sessions, and each user gets their own history.
   
 * Installation
   #+BEGIN_SRC
@@ -52,18 +50,8 @@ A bash function that wraps =cd= to log your directory history.
   #+END_SRC
 
 * Customization
-  There are two variables you can set in your =.bashrc= to modify the behavior
-  of =mycd=.
-
-  The first is =MYCD_HIST_LENGTH= which controls the number of history items
-  that are remembered. This value defaults to 15. 
-
-  The second variable is =MYCD_HIST_FILE= which controls which file to store the
-  directory history in. This value defaults to =$HOME/.mycd-dir-hist=. You can
-  use this variable to share directory history between users by setting it to
-  the same value in different users =.bashrc='s. Note that if you do this you
-  will want to make sure that =MYCD_HIST_LENGTH= is set to the same value for
-  each user and the history file is readable and writable by each user.
+  The =MYCD_HIST_LENGTH= variable can be set to control the number of history
+  items that are remembered. This value defaults to 15. 
 
 * License
   MIT
