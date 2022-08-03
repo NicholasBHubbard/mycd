@@ -2,7 +2,6 @@
 # WWW:     https://github.com/NicholasBHubbard/mycd
 # License: MIT
 
-MYCD_HIST_FILE=${MYCD_HIST_FILE:-"$HOME/.mycd-dir-hist"}
 MYCD_HIST_LENGTH=${MYCD_HIST_LENGTH:-15}
 
 function mycd() {
@@ -12,12 +11,14 @@ function mycd() {
         return 1
     fi
 
-    [[ -f $MYCD_HIST_FILE ]] || (:> "$MYCD_HIST_FILE")
+    local histfile="$HOME/.mycd-dir-hist"
 
-    chmod 0666 "$MYCD_HIST_FILE"
+    [[ -f $histfile ]] || (:> "$histfile")
 
-    if ! [[ -r $MYCD_HIST_FILE && -w $MYCD_HIST_FILE ]]; then
-        >&2 printf "mycd: you do not have read+write permission on %s\n" "$MYCD_HIST_FILE"
+    chmod 0666 "$histfile"
+
+    if ! [[ -r $histfile && -w $histfile ]]; then
+        >&2 printf "mycd: you do not have read+write permission on %s\n" "$histfile"
         return 1
     fi
 
@@ -31,7 +32,7 @@ function mycd() {
         while read -r dir; do
             ((histlength++))
             dirhist[$histlength]=$dir
-        done < "$MYCD_HIST_FILE"
+        done < "$histfile"
 
         if [[ -v dirhist[$histnum] ]]; then
             newdir=${dirhist[$histnum]}
@@ -40,7 +41,7 @@ function mycd() {
             return 1
         fi
     elif [[ $arg == '--' ]]; then
-        nl "$MYCD_HIST_FILE"
+        nl "$histfile"
         return 0
     elif [[ -z $arg ]]; then
         newdir="$HOME"
@@ -53,10 +54,10 @@ function mycd() {
 
     local tmp
     tmp=$(mktemp /tmp/mycd-dir-hist.XXXXXXXXXX)
-    cp -dp "$MYCD_HIST_FILE" "$tmp"
+    cp -dp "$histfile" "$tmp"
 
-    cat <(printf "%s\n" "$newdir") <(grep -vFx "$newdir" "$MYCD_HIST_FILE") \
-    | head -n "$MYCD_HIST_LENGTH" > "$tmp" && cp -dp "$tmp" "$MYCD_HIST_FILE"
+    cat <(printf "%s\n" "$newdir") <(grep -vFx "$newdir" "$histfile") \
+    | head -n "$MYCD_HIST_LENGTH" > "$tmp" && cp -dp "$tmp" "$histfile"
 
     [[ -f $tmp ]] && rm "$tmp"
 
