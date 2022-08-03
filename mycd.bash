@@ -15,7 +15,7 @@ function mycd() {
 
     [[ -f $histfile ]] || (:> "$histfile")
 
-    chmod 0666 "$histfile"
+    chmod 0644 "$histfile"
 
     if ! [[ -r $histfile && -w $histfile ]]; then
         >&2 printf "mycd: you do not have read+write permission on %s\n" "$histfile"
