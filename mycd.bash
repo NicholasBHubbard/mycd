@@ -13,7 +13,7 @@ mycd() {
         return 1
     fi
 
-    local histfile="$HOME/.mycd-dir-hist"
+    local histfile="$HOME/.mycd-directory-history"
 
     [[ -f $histfile ]] || (:> "$histfile")
 
@@ -55,7 +55,7 @@ mycd() {
     newdir="$PWD"
 
     local tmp
-    tmp=$(mktemp /tmp/mycd-dir-hist.XXXXXXXXXX)
+    tmp=$(mktemp /tmp/mycd-directory-history.XXXX)
     cp -dp "$histfile" "$tmp"
 
     cat <(printf "%s\n" "$newdir") <(grep -vFx "$newdir" "$histfile") \
