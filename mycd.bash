@@ -24,7 +24,10 @@ mycd() {
 
     local arg="$1" newdir histlength=0
 
-    if [[ $arg =~ ^-([1-9][0-9]*)$ ]]; then
+    if [[ $arg == '--' ]]; then
+        nl "$histfile"
+        return 0
+    elif [[ $arg =~ ^-([1-9][0-9]*)$ ]]; then
         local histnum=${BASH_REMATCH[1]}
 
         declare -A dirhist
@@ -40,9 +43,6 @@ mycd() {
             >&2 printf "mycd: %s not in range 1-%s\n" "$histnum" "$histlength"
             return 1
         fi
-    elif [[ $arg == '--' ]]; then
-        nl "$histfile"
-        return 0
     elif [[ -z $arg ]]; then
         newdir="$HOME"
     else
