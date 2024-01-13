@@ -50,10 +50,11 @@ mycd() {
     fi
 
     builtin cd "$newdir" || return 1
+
     newdir="$PWD"
 
-    local tmp
-    tmp=$(mktemp /tmp/mycd-directory-history.XXXX)
+    local tmp=$(mktemp /tmp/mycd-directory-history.XXXX)
+
     cp -dp "$histfile" "$tmp"
 
     cat <(printf "%s\n" "$newdir") <(grep -vFx "$newdir" "$histfile") \
