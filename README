@@ -22,8 +22,8 @@ A bash function that wraps =cd= to log your directory history.
   recommended that you alias =cd= to =mycd=. Add the following lines to your
   =.bashrc=.
   #+BEGIN_SRC 
-  if [ -r /etc/profile.d/mycd.bash ]; then
-     . /etc/profile.d/mycd.bash
+  if [ -r $DIR/mycd.bash ]; then
+     . $DIR/mycd.bash
      alias cd=mycd
   fi
   #+END_SRC 
