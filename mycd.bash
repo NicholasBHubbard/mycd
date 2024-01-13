@@ -1,10 +1,12 @@
+#!/bin/bash
+
 # Author:  Nicholas Hubbard
 # WWW:     https://github.com/NicholasBHubbard/mycd
 # License: MIT
 
 MYCD_HIST_LENGTH=${MYCD_HIST_LENGTH:-15}
 
-function mycd() {
+mycd() {
 
     if [[ $# -gt 1 ]]; then
         >&2 printf "mycd: too many arguments\n"
